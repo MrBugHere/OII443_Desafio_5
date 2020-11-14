@@ -25,5 +25,5 @@ class tree:
             cant_visitas += child.no_visits
         node.update_prob(cant_visitas)
 
-        self.update_tree(child.father)
+        self.update_tree(node.father)
         
