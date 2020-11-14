@@ -23,7 +23,8 @@ class tree:
         cant_visitas = 0
         for child in node.father.childs:
             cant_visitas += child.no_visits
-        node.update_prob(cant_visitas)
-
-        self.update_tree(node.father)
         
+        for child in node.father.childs:
+            child.update_prob(cant_visitas)
+            
+        self.update_tree(node.father)
