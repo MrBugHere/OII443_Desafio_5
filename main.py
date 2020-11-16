@@ -1,6 +1,7 @@
 import pandas as pd
 import pickle
 
+
 class node:
     def __init__(self, data, padre):
         self.data = data
