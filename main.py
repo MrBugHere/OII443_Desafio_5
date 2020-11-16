@@ -1,5 +1,5 @@
 import pandas as pd
-import pickle
+import pickle as pc
 
 
 class node:
@@ -23,7 +23,11 @@ class tree:
     def __init__(self):
         self.root = node(None,None)
 
-    
+    def save_tree(self):
+        pc.dump(self.root, open("save_state_tree.p","wb"))
+
+    def load_tree(self, input):
+        self.root = pc.load(open(input,"rb"))
  
     def insert(self,string):
 
@@ -57,11 +61,13 @@ class tree:
 
 def main():
     arbol = tree()
-    datos = pd.read_csv('data_set.csv',header = 0)
+    # datos = pd.read_csv('data_set.csv',header = 0)
     
-    for string in datos['transcript']:
-        arbol.insert(string)
+    # for string in datos['transcript']:
+    #     arbol.insert(string)
+    arbol.load_tree("save_state_tree.p")
     arbol.imprimir()
+    # arbol.save_tree()
     
 
 main()
