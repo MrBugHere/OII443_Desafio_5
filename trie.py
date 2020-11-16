@@ -1,3 +1,4 @@
+import pandas as pd
 class node:
     def _init_(self, data='', no_visits=1, prob=0., father=None, childs=[]):
         self.data = data
@@ -28,3 +29,13 @@ class tree:
             child.update_prob(cant_visitas)
             
         self.update_tree(node.father)
+
+def main():
+    arbol = tree()
+    datos = pd.read_csv('data_set.csv',header = 0)
+    
+    for string in datos['transcript']:
+        for char in string.split():
+            print(char)
+
+main()
