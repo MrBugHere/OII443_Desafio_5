@@ -1,4 +1,6 @@
 import pandas as pd
+import pickle
+
 class node:
     def __init__(self, data, padre):
         self.data = data
@@ -10,10 +12,8 @@ class node:
     def actCant(self):
         self.no_visits = self.no_visits + 1
     
-    def actProb(self):
-        cant = 0
-        for hijo in self.padre.childs.values():
-            cant = cant + hijo.no_visits
+    def actProb(self,cant):
+        
         self.prob = self.no_visits/cant
 
     
@@ -21,6 +21,8 @@ class node:
 class tree:
     def __init__(self):
         self.root = node(None,None)
+
+    
  
     def insert(self,string):
 
@@ -28,16 +30,20 @@ class tree:
         for word in string.split():
             if word not in  parent.childs:
                 parent.childs[word] = node(word,parent)
-                
+                self.actualizarHijos(parent)
             else:
                 parent.childs[word].actCant()
-                
+                self.actualizarHijos(parent)
             
             parent = parent.childs[word]
     
     def actualizarHijos(self,parent):
+        cant = 0
         for hijo in parent.childs.values():
-            hijo.actProb()
+            cant = cant + hijo.no_visits
+        
+        for hijo in parent.childs.values():
+            hijo.actProb(cant)
 
 
     def imprimir(self):
