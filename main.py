@@ -1,73 +1,28 @@
 import pandas as pd
 import pickle as pc
+from trie import tree
 
 
-class node:
-    def __init__(self, data, padre):
-        self.data = data
-        self.no_visits = 1
-        self.prob = 0.0
-        self.childs = {}
-        self. padre = padre
-        
-    def actCant(self):
-        self.no_visits = self.no_visits + 1
-    
-    def actProb(self,cant):
-        
-        self.prob = self.no_visits/cant
-
-    
-
-class tree:
-    def __init__(self):
-        self.root = node(None,None)
-
-    def save_tree(self):
-        pc.dump(self.root, open("save_state_tree.p","wb"))
-
-    def load_tree(self, input):
-        self.root = pc.load(open(input,"rb"))
- 
-    def insert(self,string):
-
-        parent = self.root
-        for word in string.split():
-            if word not in  parent.childs:
-                parent.childs[word] = node(word,parent)
-                self.actualizarHijos(parent)
-            else:
-                parent.childs[word].actCant()
-                self.actualizarHijos(parent)
-            
-            parent = parent.childs[word]
-    
-    def actualizarHijos(self,parent):
-        cant = 0
-        for hijo in parent.childs.values():
-            cant = cant + hijo.no_visits
-        
-        for hijo in parent.childs.values():
-            hijo.actProb(cant)
-
-
-    def imprimir(self):
-        print(self.root.childs['y'].prob)
-
-
-             
-
-
-
-def main():
+if __name__ == "__main__":
     arbol = tree()
-    # datos = pd.read_csv('data_set.csv',header = 0)
-    
-    # for string in datos['transcript']:
-    #     arbol.insert(string)
-    arbol.load_tree("save_state_tree.p")
-    arbol.imprimir()
-    # arbol.save_tree()
-    
+    datos = pd.read_csv('data_set.csv',header = 0)
 
-main()
+    i = 0
+    print(datos['transcript'])
+    for string in datos['transcript']:
+        arbol.insert(string)
+        print(i)
+        i+=1
+
+    """for i in range(int(len(datos['transcript'])*.1)):
+        arbol.insert(datos['transcript'][i])
+        print(i)"""
+
+    #arbol.load_tree("save_state_tree.p")
+    arbol.imprimir()
+
+    print(arbol.recommend("y", 4))
+    print()
+    print(arbol.recommend("come tu", 2))
+
+    #arbol.save_tree()
