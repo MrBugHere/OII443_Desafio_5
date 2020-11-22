@@ -1,5 +1,5 @@
 # Coevaluacion
 
-- Leonardo Durán: 20%
-- José García:  40%
-- Tomas Rojas: 40%
+- Leonardo Durán:35%
+- José García:  30%
+- Tomas Rojas: 35%

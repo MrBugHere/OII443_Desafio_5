@@ -1,25 +1,24 @@
 import pandas as pd
-import pickle as pc
-from trie import tree
+from trie import tree, node
 
 
 if __name__ == "__main__":
     arbol = tree()
     datos = pd.read_csv('data_set.csv',header = 0)
 
-    i = 0
-    print(datos['transcript'])
-    for string in datos['transcript']:
-        arbol.insert(string)
-        print(i)
-        i+=1
+    # i = 0
+    # print(datos['transcript'])
+    # for string in datos['transcript']:
+    #     arbol.insert(string)
+    #     print(i)
+    #     i+=1
 
-    """for i in range(int(len(datos['transcript'])*.1)):
-        arbol.insert(datos['transcript'][i])
-        print(i)"""
+    # """for i in range(int(len(datos['transcript'])*.1)):
+    #     arbol.insert(datos['transcript'][i])
+    #     print(i)"""
 
-    #arbol.load_tree("save_state_tree.p")
-    arbol.imprimir()
+    arbol.load_tree("save_state_tree.p")
+    # arbol.imprimir()
 
     print(arbol.recommend("y", 4))
     print()
